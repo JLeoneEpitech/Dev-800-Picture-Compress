@@ -1,0 +1,21 @@
+- name: Template a file to /etc/file.conf
+  ansible.builtin.template:
+    src: vsftpd.conf
+    dest: /etc/vsftpd.conf
+    owner: root  
+    group: root
+    mode: '0644'
+    
+- name: Restart service vsftpd , also issue daemon-reload to pick up config changes
+  ansible.builtin.systemd:
+    state: restarted
+    daemon_reload: true
+    name: vsftpd
+
+- name: Add the user 'ftp_usr' with a specific uid and a primary group of 'admin'
+  ansible.builtin.user:
+    name: ftp_project
+    password: "{{ ftp_password | password_hash('sha512') }}"
+    uid: 1040
+    group: admin
+  tags: ftp

@@ -1,0 +1,14 @@
+---
+- name : Setup playbook
+  hosts: aws
+  vars_files:
+    - ./vault.yml
+  become: true
+  roles:
+    - role: roles/apt
+    - role: roles/pip
+    - role: roles/backend_setup
+    - role: roles/docker_setup
+    - role: roles/docker_install
+    - role: roles/ftp
+    

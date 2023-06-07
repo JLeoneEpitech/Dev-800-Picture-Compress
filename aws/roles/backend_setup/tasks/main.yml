@@ -1,0 +1,4 @@
+- name: Synchronizing backend
+  ansible.posix.synchronize:
+    src: ../../../../backend
+    dest: /home/admin/T-DEV-800/

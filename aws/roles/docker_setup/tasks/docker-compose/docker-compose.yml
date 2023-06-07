@@ -1,0 +1,38 @@
+version: "3"
+services:
+  django:
+    container_name: django
+    restart: always
+    build: ./backend
+    command: python3 manage.py runserver 0.0.0.0:8000
+
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: mariadb
+    restart: always
+    container_name: db
+
+    environment:
+      MYSQL_ROOT_PASSWORD: '${MYSQL_ROOT_PASSWORD}' 
+      MYSQL_DATABASE: T-DEV-800
+      MYSQL_USER: default
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+    
+    env_file:
+      - .env
+    
+    healthcheck:
+      test: ["CMD", 'mysqladmin', 'ping', '-h', '0.0.0.0', '-u', 'root', '-p${MYSQL_ROOT_PASSWORD}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    volumes:
+      - my-datavolume:/var/lib/mysql
+
+volumes:
+  my-datavolume:

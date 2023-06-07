@@ -1,0 +1,1 @@
+RUN : ansible-playbook -i inventory.ini playbook.yml --private-key=~/.ssh/aws --ask-vault-pass --skip-tags ftp

@@ -1,0 +1,22 @@
+- name: Copy docker-compose
+  ansible.builtin.copy:
+    src: docker-compose/docker-compose.yml
+    dest: /home/admin/T-DEV-800/docker-compose.yml
+    owner: admin
+    group: admin
+    mode: '0644'
+    follow: yes
+
+- name: Copy .env
+  ansible.builtin.copy:
+    src: docker-compose/.env
+    dest: /home/admin/T-DEV-800/.env
+    owner: admin
+    group: admin
+    mode: '0644'
+    follow: yes
+
+- name: Tear down existing services
+  community.docker.docker_compose:
+    project_src: T-DEV-800/
+    state: absent
