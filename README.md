@@ -1,3 +1,7 @@
+Mobile App that allow to take picture, compress her, then upload her on FTP Server and BDD.
+
+--
+
 Flutter Framework for Front-End -> Run "Flutter run"
 
 JavaScript API for Back-end -> "Npm install" then "npm start"
